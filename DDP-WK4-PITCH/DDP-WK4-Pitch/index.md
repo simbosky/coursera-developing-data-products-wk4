@@ -26,13 +26,9 @@ In this presentation we will:
 
 ## A First Exploration
 The data shows a strong skew towards lower paid employees for both men and women, and with very similar proportions in the payscale.
-```{r message=F, warning=F, echo=F}
-library(dplyr)
-library(ggplot2)
-library(Hmisc)
 
-```
-```{r fig.align='center', fig.width=10, fig.height=5}
+
+```r
 HR <- read.csv('../../DDP-WK4-SHINY/IBMHR.csv')
 HR <- HR %>% select(-(EmployeeCount:EmployeeNumber)) %>%
   mutate(SalaryBand= cut2(MonthlyIncome, g=5))
@@ -41,16 +37,21 @@ q <- ggplot(data=HR,aes(x=MonthlyIncome), xlab="Monthly income") + geom_density(
 q
 ```
 
+<img src="figure/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+
 
 --- .smallCode
 
 ## Continuing the Exploration
 We can also see the distribution of job types in the dataset.
 
-```{r fig.align='center', fig.width=10, fig.height=5}
+
+```r
 q <- ggplot(data=HR,aes(x=JobRole), xlab="Job Role") + geom_bar (aes(fill=SalaryBand))+ facet_grid(. ~ Gender)+coord_flip()
 q
 ```
+
+<img src="figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 
 ---

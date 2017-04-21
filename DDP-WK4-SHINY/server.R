@@ -22,21 +22,37 @@ testy <- HR[-trainIndex,] %>% select(Attrition)
 shinyServer(function(input, output) {
   fitModel <- reactive({
     #randomForest(train$Attrition ~ ., data <- train, ntree=input$ntree, importance=TRUE )
-    set.seed(123321)
-    trControl <- trainControl(method="none")
-    train(x=trainX, y=trainY[[1]], method="rf", ntree=input$ntree,
-          importance=TRUE, trControl = trControl,tuneLength =1 )
+    if(input$ntree>0){
+      set.seed(123321)
+      trControl <- trainControl(method="none")
+      train(x=trainX, y=trainY[[1]], method="rf", ntree=input$ntree,
+            importance=TRUE, trControl = trControl,tuneLength =1 )
+    }
+    
     })
   
-  output$fitRF <- renderPlot({plot(varImp(fitModel()), top=input$top, main = paste0("Number of trees used is ",input$ntree))})
+  output$fitRF <- renderPlot({ 
+    if(input$ntree>0){
+    withProgress (message="working...",plot(varImp(fitModel()), top=input$top, main = paste0("Number of trees used is ",input$ntree)))
+      }
+    
+    })
   
   output$fitConfusion <- renderPrint({
-    confusionMatrix(predict(fitModel(), newdata=trainX),trainY[[1]])
+    if(input$ntree>0){
+      withProgress (message="working...",
+        confusionMatrix(predict(fitModel(), newdata=trainX),trainY[[1]])
+      )
+    }
     })
   
   output$testConfusion <- renderPrint({
-    confusionMatrix(predict(fitModel(), newdata=testX),testy[[1]])
-  })
+    if(input$ntree>0){
+      withProgress (message="working...",
+        confusionMatrix(predict(fitModel(), newdata=testX),testy[[1]])
+      )
+  }
+    })
   
   output$trainSize <- renderText({ paste0(
     "Observations: ",dim(trainX)[1],", Predictors: ",dim(trainX)[2])})

@@ -21,18 +21,26 @@ shinyUI(fluidPage(theme=shinytheme("readable"),
     column(width=6,
     sliderInput("ntree",
                 "Number of Trees:",
-                min = 1,
-                max = 100,
+                min = 0,
+                max = 500,
                 step = 5,
                 value = 5)),
   column(width=6,numericInput("top",label="Number of Variables",value=10, min=1, max=20, step=5, width="100%")),
 
-    fluidRow(column(width=12,navlistPanel(  
+    fluidRow(column(width=12,
+      conditionalPanel(condition="input.ntree!=0",
+      navlistPanel(  
       # Show a plot of the generated distribution
+      
       tabPanel("Variable Importance Plot",fluidRow(column(width=12, plotOutput("fitRF")))),
       tabPanel("Train Confusion Matrix",fluidRow(column(width=12, verbatimTextOutput("fitConfusion")))),
       tabPanel("Test Confusion Matrix",fluidRow(column(width=12, verbatimTextOutput("testConfusion"))))
-    )))
+      
+      ))
+      )),
+  conditionalPanel(condition="input.ntree==0",
+                   p(em("Select a number of trees greater than zero")))
+  
     
     )
   
