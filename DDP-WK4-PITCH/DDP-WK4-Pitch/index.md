@@ -14,17 +14,18 @@ knit        : slidify::knit2slides
 ---  .myRed
 
 ## Introduction 
-This presentation sets out the exploratory data analysis of the IBM HR Analytics dataset.  This is a fictional dataset provided by IBM scientists and hosted by Kaggle [here](https://www.kaggle.com/pavansubhasht/ibm-hr-analytics-attrition-dataset).  The dataset enables an exploration of the features that might predict why someone would leave the company.
+This presentation sets out my pitch for a Shiny App that explores data the IBM HR Analytics dataset.  This is a fictional dataset provided by IBM scientists and hosted by Kaggle [here](https://www.kaggle.com/pavansubhasht/ibm-hr-analytics-attrition-dataset).  The dataset enables an exploration of the features that might predict why someone would leave the company.
 
 
-In this presentation we will:
+This app is great as it might help you stop your employees leaving!
+In this pitch you will get to:
 
-+ Display some exploratory graphs
++ See some exploratory graphs
 + Link to the Shiny app that supports this pitch
 
 --- .smallCode
 
-## A First Exploration
+## Lower Paid People Might Go!
 The data shows a strong skew towards lower paid employees for both men and women, and with very similar proportions in the payscale.
 
 
@@ -42,7 +43,7 @@ q
 
 --- .smallCode
 
-## Continuing the Exploration
+## What about job types?
 We can also see the distribution of job types in the dataset.
 
 
@@ -56,9 +57,9 @@ q
 
 ---
 
-## The prediction model
+## The prediction Shiny model
 
-I would like to predict attrition rate from the variables supplied.  A Random Forest is often a very robust approach.  I have therefore developed a shiny app that enables the user to explore the number of trees grown and the impact on the confusion matrix.
+A Random Forest is often a very robust approach.  I have therefore developed a shiny app that enables the user to explore the number of trees grown and the impact on the confusion matrix.
 
 The model can be found [here](https://simbosky.shinyapps.io/ddp-wk4/)
 
@@ -72,3 +73,4 @@ The prediction model shows the following:
 + Increasing the number of trees to 100 only increases the test set accuracy to 85.68%
 + Increasing the number of trees to 500 does not further increase the accuracy beyond 85.68%
 
+Pretty good - you should use it!!
